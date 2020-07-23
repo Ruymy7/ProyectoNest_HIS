@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { CreatePatientDto } from 'src/users/domain/dto/create/create-patient-dto';
 import { CreateProfessionalDto } from 'src/users/domain/dto/create/create-professional-dto';
 import { UpdatePatientDto } from 'src/users/domain/dto/update/update-patient-dto';
@@ -17,26 +17,54 @@ export class UsersService {
   users: User[] = []
 
   async getUsers(): Promise<User[]> {
-    return await this.userModel.find({})
+    try {
+      return await this.userModel.find({})
+    } catch (e) {
+      Logger.error(`Get all users error: `, e)
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
+    }
   }
 
   async getUser(id: string): Promise<User> {
-    return await this.userModel.findOne({ _id: id })
+    try {
+      return await this.userModel.findOne({ _id: id })
+    } catch (e) {
+      Logger.error(`Get user ${id} error: `, e)
+      if(e.name.includes('CastError')) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND)
+      }
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
+    }
   }
 
   // TODO: Change Patient | Professional to CreatePatientDto | CreateProfessionalDto
   async addUser(user: CreatePatientDto | CreateProfessionalDto): Promise<User> {
-    const newUser: User = new this.userModel(user)
-    return newUser.save()
+    try {
+      const newUser: User = new this.userModel(user)
+      return await newUser.save()
+    } catch (e) {
+      Logger.error(`Add user error: `, e)
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
+    }
   }
 
   // TODO: Change Patient | Professional to UpdatePatientDto | UpdateProfessionalDto
   async updateUser(id: string, user: UpdatePatientDto | UpdateProfessionalDto): Promise<User> {
-    return await this.userModel.updateOne({ _id: id }, user)
+    try {
+      return await this.userModel.updateOne({ _id: id }, user)
+    } catch (e) {
+      Logger.error(`Update user ${id} error: `, e)
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
+    }
   }
 
   async deleteUser(id: string): Promise<void> {
-    await this.userModel.deleteOne({ _id: id })
+    try {
+      await this.userModel.deleteOne({ _id: id })
+    } catch (e) {
+      Logger.error(`Delete user ${id} error: `, e)
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
+    }
   }
 
 }
