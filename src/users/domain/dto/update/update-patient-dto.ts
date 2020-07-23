@@ -9,7 +9,7 @@ interface Insurance {
 }
 
 export class UpdatePatientDto extends UserDto {
-  id: string
+  _id: string
   NHC: string
   insurance: Insurance[]
 }
