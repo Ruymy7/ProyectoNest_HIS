@@ -21,12 +21,11 @@ export class UsersController {
     return this.usersService.getUser(id)
   }
 
-  // TODO: Change Patient | Professional to CreatePatientDto | CreateProfessionalDto
   @Post()
   addUser(@Body() user: CreatePatientDto | CreateProfessionalDto): Promise<User> {
     return this.usersService.addUser(user)
   }
-  // TODO: Change Patient | Professional to UpdatePatientDto | UpdateProfessionalDto
+
   @Put('/:id')
   updateUser(@Param('id') id: string, @Body() user: UpdatePatientDto | UpdateProfessionalDto): Promise<User> {
     return this.usersService.updateUser(id, user)
