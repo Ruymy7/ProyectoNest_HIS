@@ -15,7 +15,12 @@ export const user = new mongoose.Schema({
     postalCode: String,
     city: String
   },
-  insurance: [],
+  insurance: [{
+    cardNumber: String,
+    name: String,
+    type: String
+  }],
   medicalBoardNumber: String,
   professionalType: String
-})
+},
+  { typeKey: '$type' })
