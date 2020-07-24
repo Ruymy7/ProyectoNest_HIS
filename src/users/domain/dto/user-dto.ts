@@ -1,4 +1,4 @@
-interface Address {
+class Address {
   street: string
   number: string
   door?: string

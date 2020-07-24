@@ -2,7 +2,7 @@ import { UserDto } from "../user-dto";
 
 type insurance = 'salud' | 'familiar' | 'dental'
 
-interface Insurance {
+class Insurance {
   cardNumber: string
   name: string
   type: insurance
