@@ -1,4 +1,4 @@
-import { Injectable, Logger, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { CreatePatientDto } from 'src/users/domain/dto/create/create-patient-dto';
 import { CreateProfessionalDto } from 'src/users/domain/dto/create/create-professional-dto';
 import { UpdatePatientDto } from 'src/users/domain/dto/update/update-patient-dto';
@@ -32,14 +32,13 @@ export class UsersService {
       return user
     } catch (e) {
       Logger.error(`Get user ${id} error: `, e)
-      if(e.name.includes('CastError')) {
+      if(e.name.includes('CastError') || e.response.includes('User not found')) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND)
       }
       throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
 
-  // TODO: Change Patient | Professional to CreatePatientDto | CreateProfessionalDto
   async addUser(user: CreatePatientDto | CreateProfessionalDto): Promise<User> {
     try {
       const newUser: User = new this.userModel(user)
@@ -50,7 +49,6 @@ export class UsersService {
     }
   }
 
-  // TODO: Change Patient | Professional to UpdatePatientDto | UpdateProfessionalDto
   async updateUser(id: string, user: UpdatePatientDto | UpdateProfessionalDto): Promise<User> {
     try {
       return await this.userModel.updateOne({ _id: id }, user)
