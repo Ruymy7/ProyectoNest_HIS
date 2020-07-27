@@ -28,13 +28,11 @@ export class UsersService {
   async getUser(id: string): Promise<User> {
     try {
       const user = await this.userModel.findOne({ _id: id })
-      if(!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND)
+      if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND)
       return user
     } catch (e) {
       Logger.error(`Get user ${id} error: `, e)
-      if(e.name.includes('CastError') || e.response.includes('User not found')) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND)
-      }
+      if (e.name.includes('CastError') || e.response.includes('User not found')) throw e
       throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
