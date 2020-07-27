@@ -16,9 +16,6 @@ Run `npm install` to install all dependencies of the project
 By default the app serves the port 3000
 
 ```bash
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
 
