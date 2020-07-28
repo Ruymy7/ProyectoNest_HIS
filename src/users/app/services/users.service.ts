@@ -3,7 +3,6 @@ import { CreatePatientDto } from 'src/users/domain/dto/create/create-patient-dto
 import { CreateProfessionalDto } from 'src/users/domain/dto/create/create-professional-dto';
 import { UpdatePatientDto } from 'src/users/domain/dto/update/update-patient-dto';
 import { UpdateProfessionalDto } from 'src/users/domain/dto/update/update-professional-dto';
-
 import * as mongoose from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/users/domain/models/user.interface';
@@ -63,6 +62,10 @@ export class UsersService {
       Logger.error(`Delete user ${id} error: `, e)
       throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
     }
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.userModel.findOne({email: email})
   }
 
 }
