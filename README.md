@@ -13,6 +13,8 @@ Run `npm install` to install all dependencies of the project
 
 ## Running the app
 
+You will need to rename the file `.env.example` to `.env` and set the fields DB_NAME, DB_USERNAME, DB_PASSWORD and JWT_PASSWORD
+
 By default the app serves the port 3000
 
 ```bash
