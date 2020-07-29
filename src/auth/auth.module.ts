@@ -6,13 +6,15 @@ import { RegisterModule } from 'src/register/register.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt'
 import { JWTStrategy } from './app/strategies/jwt.strategy';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     UsersModule,
     PassportModule.register({defaultStrategy: 'jwt', session: false}),
     JwtModule.register({
-      secret: "process.env.JWT_PASSWORD",
+      secret: process.env.JWT_PASSWORD,
       signOptions: {
         expiresIn: 3600
       }
