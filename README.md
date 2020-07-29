@@ -18,9 +18,6 @@ You will need to rename the file `.env.example` to `.env` and set the fields DB_
 By default the app serves the port 3000
 
 ```bash
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
 
