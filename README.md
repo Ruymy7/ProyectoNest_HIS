@@ -11,6 +11,10 @@ This application was developed using [NestJS](https://nestjs.com/) and a [MongoD
 
 This application is already deployed in https://his-project-nestjs.herokuapp.com/ for testing. As it is deployed in the Heroku free tier server, it will take some time to run the first time you connect after 30 minutes.
 
+## Already developed frontend
+
+Run the application in [this repository](https://github.com/Ruymy7/ProyectoAngular_HIS) to try this project. That app is also deployed in https://his-project-angular.herokuapp.com/ and connected to the backend of the current repository
+
 ## Installation
 
 Run `npm install` to install all dependencies of the project 
@@ -35,7 +39,3 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
-## Already developed frontend
-
-Run the application in [this repository](https://github.com/Ruymy7/ProyectoAngular_HIS) to try this project. That app is also deployed in https://his-project-angular.herokuapp.com/
